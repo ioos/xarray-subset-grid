@@ -15,7 +15,7 @@ def get_test_file_dir():
     """
     returns the test file dir path
     """
-    test_file_dir = os.path.join(os.path.dirname(__file__), 'test_data')
+    test_file_dir = os.path.join(os.path.dirname(__file__), 'example_data')
     return test_file_dir
 
 poly1_180 = np.array(

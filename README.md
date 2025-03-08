@@ -96,6 +96,12 @@ To run a shell to do dev work:
 pixi shell -e dev
 ```
 
+If you want to run the examples (notebooks and al that):
+
+```bash
+pixi shell -e all
+```
+
 That will set up a conda environment with all the develop dependencies.
 
 To run a shell in which you can run the examples:

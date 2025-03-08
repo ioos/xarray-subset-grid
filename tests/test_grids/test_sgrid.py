@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -15,8 +15,9 @@ except ImportError:
     fsspec = None
 
 
-test_dir = get_test_file_dir()
-sample_sgrid_file = os.path.join(test_dir, 'arakawa_c_test_grid.nc')
+test_dir = Path(__file__).parent.parent / 'example_data'
+
+sample_sgrid_file = test_dir / 'arakawa_c_test_grid.nc'
 
 def test_grid_topology_location_parse():
     ds = xr.open_dataset(sample_sgrid_file, decode_times=False)

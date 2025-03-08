@@ -1,3 +1,14 @@
+"""
+Implementation for Rectangular grids
+
+NOTE: it's called "regular", but I think this will work for
+any (grid-aligned) rectangular grid:
+
+The grid is defined by two 1-d arrays.
+
+* delta_lat and delta_lon do not have to be constant.
+"""
+
 import numpy as np
 import xarray as xr
 
@@ -11,7 +22,7 @@ from xarray_subset_grid.utils import (
 
 
 class RegularGridPolygonSelector(Selector):
-    """Selector for regular lat/lng grids."""
+    """Polygon Selector for regular lat/lon grids."""
 
     polygon: list[tuple[float, float]] | np.ndarray
     _polygon_mask: xr.DataArray
@@ -48,7 +59,7 @@ class RegularGridBBoxSelector(Selector):
 
     def select(self, ds: xr.Dataset) -> xr.Dataset:
         """Perform the selection on the dataset."""
-        ds.cf.sel(lon=self._longitude_selection, lat=self._latitude_selection)
+        return ds.cf.sel(lon=self._longitude_selection, lat=self._latitude_selection)
 
 
 class RegularGrid(Grid):
