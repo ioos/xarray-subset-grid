@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: prefix-dev/setup-pixi@v0.8.8
         with:
-          pixi-version: $PIXI_VERSION
+          pixi-version: latest
           cache: true
           # auth-host: prefix.dev
           # auth-token: ${{ secrets.PREFIX_DEV_TOKEN }}
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: prefix-dev/setup-pixi@v0.8.8
         with:
-          pixi-version: $PIXI_VERSION
+          pixi-version: latest
           cache: true
           # auth-host: prefix.dev
           # auth-token: ${{ secrets.PREFIX_DEV_TOKEN }}
