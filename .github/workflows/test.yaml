@@ -1,8 +1,12 @@
 
 
+
 name: test
 
 on: [push, pull_request]
+
+env:
+  PIXI_VERSION: v0.47.0
 
 # # Gave up -- could not figure out how to use environment variables :-(
 # env:
@@ -18,16 +22,15 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        environment: [test310, test311, test312]
+        environment: [test310, test311, test312, test313]
     steps:
       - uses: actions/checkout@v4
-      - uses: prefix-dev/setup-pixi@v0.8.1
+      - uses: prefix-dev/setup-pixi@v0.8.8
         with:
-          pixi-version: v0.29.0
+          pixi-version: $PIXI_VERSION
           cache: true
           # auth-host: prefix.dev
           # auth-token: ${{ secrets.PREFIX_DEV_TOKEN }}
-#      - run: pixi run --environment test312 lint
       - run: pixi run --environment ${{ matrix.environment }} test
   lint:
     runs-on: ubuntu-latest
@@ -35,9 +38,9 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
-      - uses: prefix-dev/setup-pixi@v0.8.1
+      - uses: prefix-dev/setup-pixi@v0.8.8
         with:
-          pixi-version: v0.29.0
+          pixi-version: $PIXI_VERSION
           cache: true
           # auth-host: prefix.dev
           # auth-token: ${{ secrets.PREFIX_DEV_TOKEN }}

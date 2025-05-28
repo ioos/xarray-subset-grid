@@ -24,6 +24,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Scientific/Engineering",
 ]
 
@@ -34,7 +35,8 @@ dependencies = [
   "xarray>=2024.6",
   "cf_xarray",
   "cftime",
-  "dask[complete]",
+  "dask",
+  # "dask[complete]", # getting errors from pixi with the "complete"
   "netcdf4",
 ]
 
@@ -102,6 +104,7 @@ all = { features = ["dev", "examples"], solve-group = "default" }
 test310 = ["dev", "py310"] # implicit: test310 = ["dev", "py310", "default"]
 test311 = ["dev", "py311"]
 test312 = ["dev", "py312"]
+test313 = ["dev", "py313"]
 
 
 [tool.pixi.tasks]
@@ -128,6 +131,9 @@ pytest = "*"
 pytest-cov = "*"
 sphinx = "*"
 sphinx-rtd-theme = "*"
+pip = "*"
+setuptools_scm = "*"
+python-build = "*"
 
 
 [tool.pixi.feature.dev.tasks]
@@ -147,3 +153,6 @@ python = "~=3.11.0"
 
 [tool.pixi.feature.py312.dependencies]
 python = "~=3.12.0"
+
+[tool.pixi.feature.py313.dependencies]
+python = "~=3.13.0"
