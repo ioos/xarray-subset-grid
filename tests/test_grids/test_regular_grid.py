@@ -8,11 +8,8 @@ try:
     import fsspec
 except ImportError:
     fsspec = None
-import numpy as np
-import pytest
 import xarray as xr
 
-from xarray_subset_grid import Selector
 from xarray_subset_grid.grids.regular_grid import RegularGrid
 
 TEST_DATA = Path(__file__).parent.parent / 'example_data'

@@ -5,7 +5,6 @@ import pytest
 import xarray as xr
 
 import xarray_subset_grid.accessor  # noqa: F401
-from tests.test_utils import get_test_file_dir
 from xarray_subset_grid.grids.sgrid import _get_location_info_from_topology
 
 # open dataset as zarr object using fsspec reference file system and xarray
