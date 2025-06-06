@@ -40,7 +40,7 @@ class Selector:
     def select(self, ds: xr.Dataset) -> xr.Dataset:
         """Perform the selection on the dataset.
 
-        For example, a selector could hold predifined masks to apply to
+        For example, a selector could hold predefined masks to apply to
         the dataset, and the select method here would apply those masks
         to the dataset and return the result. This workflow is useful
         because computing the masks can be expensive, and we want to

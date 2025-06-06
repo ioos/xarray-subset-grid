@@ -16,7 +16,7 @@ Or clone the project from git and build / install it from there.
 
 ## Usage
 
-This package is designed to be used in conjuction with [`xarray`](https://xarray.dev/). Given a [CF Compliant](https://cfconventions.org/) `xarray` dataset named `ds`, this package can be accessed using the `xsg` accessor:
+This package is designed to be used in conjunction with [`xarray`](https://xarray.dev/). Given a [CF Compliant](https://cfconventions.org/) `xarray` dataset named `ds`, this package can be accessed using the `xsg` accessor:
 
 ```python
 # Get the interprested grid class

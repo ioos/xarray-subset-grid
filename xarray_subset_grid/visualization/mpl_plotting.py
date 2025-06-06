@@ -10,7 +10,7 @@ from matplotlib.tri import Triangulation
 def plot_ugrid(axes, ds, nodes=False, node_numbers=False, face_numbers=False):
     """Plot a UGRID in the provided MPL axes.
 
-    Note: this doesn't plot data on the gird, just the grid itself
+    Note: this doesn't plot data on the grid, just the grid itself
 
     :param axes: an MPL axes object to plot on
 
