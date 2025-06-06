@@ -78,6 +78,3 @@ def test_plot_ugrid_start_index_1():
 #     plot_sgrid(axis, ds, nodes=True)
 
 #     fig.savefig(OUTPUT_DIR / "sgrid_nodes")
-
-
-
