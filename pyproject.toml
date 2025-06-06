@@ -50,7 +50,7 @@ dev = [
   "sphinx",
   "sphinx-rtd-theme",
 ]
-examples = ["fsspec", "s3fs", "zarr", "matplotlib", "h5netcdf"]
+examples = ["fsspec", "s3fs", "zarr<3", "matplotlib", "h5netcdf"]
 
 [project.urls]
 "Homepage" = "https://github.com/asascience-open/xarray-subset-grid"
@@ -118,7 +118,7 @@ cf_xarray = "*"
 dask = "*"
 fsspec = "*"
 s3fs = "*"
-zarr = "*"
+zarr = "<3"
 netcdf4 = "*"
 h5netcdf = "*"
 
@@ -137,7 +137,7 @@ python-build = "*"
 
 
 [tool.pixi.feature.dev.tasks]
-lint = "ruff check"
+lint = "ruff check tests xarray_subset_grid"
 test = "pytest --online tests/"
 
 [tool.pixi.feature.examples.dependencies]
