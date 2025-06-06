@@ -23,7 +23,7 @@ jobs:
           pixi run --environment ${{ matrix.environment }} test
         
       - name: Lint
-        if: contains(${{ matrix.os }}, 'ubuntu')
+        if: contains(${{ matrix.os }}, "ubuntu") && ${{ matrix.environment }} == "test310"
         run: >
           pixi run --environment test310 lint
 
