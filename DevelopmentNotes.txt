@@ -13,5 +13,3 @@ First point is not repeated.
 Bounding Box:
 
 A tuple of floats: (min_lon, min_lat, max_lon, max_lat).
-
-

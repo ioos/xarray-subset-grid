@@ -43,7 +43,7 @@ def test_recognise_not():
 
 
 #######
-# These from teh ugrid tests -- need to be adapted
+# These from the ugrid tests -- need to be adapted
 #######
 
 # def test_grid_vars():

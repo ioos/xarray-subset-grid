@@ -1,0 +1,55 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0
+  hooks:
+    - id: trailing-whitespace
+    - id: check-ast
+    - id: debug-statements
+    - id: end-of-file-fixer
+    # - id: check-docstring-first
+    - id: check-added-large-files
+      exclude_types: [yaml]
+
+# - repo: https://github.com/keewis/blackdoc
+#   rev: v0.3.9
+#   hooks:
+#     - id: blackdoc
+
+- repo: https://github.com/codespell-project/codespell
+  rev: v2.4.1
+  hooks:
+    - id: codespell
+      exclude: >
+          (?x)^(
+              .*\.ipynb
+          )$
+      args:
+        - --ignore-words-list=astroid,fo
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.11.12
+  hooks:
+    - id: ruff
+      args: ["--fix", "--show-fixes"]
+    # - id: ruff-format
+
+- repo: https://github.com/tox-dev/pyproject-fmt
+  rev: v2.6.0
+  hooks:
+    - id: pyproject-fmt
+
+# - repo: https://github.com/woodruffw/zizmor-pre-commit
+#   rev: v1.6.0
+#   hooks:
+#     - id: zizmor
+
+ci:
+    autofix_commit_msg: |
+        [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+        for more information, see https://pre-commit.ci
+    autofix_prs: false
+    autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+    autoupdate_schedule: monthly
+    skip: []
+    submodules: false

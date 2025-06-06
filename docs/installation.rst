@@ -80,7 +80,7 @@ Source (Github)
 Install `Git <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>`__
 on your system if not already available (check with ``git --version`` at the command line.)
 
-If you are interested in installing xarray-subset-grid from source, 
+If you are interested in installing xarray-subset-grid from source,
 you will first need to get the latest version of the code
 ::
 
@@ -91,4 +91,3 @@ Run the following command from the root-directory
 ::
 
     pip install .
-

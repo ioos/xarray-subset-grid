@@ -25509,27 +25509,27 @@ packages:
   timestamp: 1745980911520
 - pypi: ./
   name: xarray-subset-grid
-  version: 0.1.dev82+ga60a450
-  sha256: 50f8b34ae97dff7908d5ac0e160f685b8397b839ad086a757fee378bc321e3bc
+  version: 0.0.2.dev10+gc52e926
+  sha256: 4573cf2d71a6653446ee6cbce54d79969c33e39acce4a712fc67110726e13ffc
   requires_dist:
-  - numpy
-  - xarray>=2024.6
   - cf-xarray
   - cftime
   - dask
   - netcdf4
-  - ruff ; extra == 'dev'
+  - numpy
+  - xarray>=2024.6
   - pre-commit ; extra == 'dev'
   - pyright ; extra == 'dev'
   - pytest ; extra == 'dev'
   - pytest-cov ; extra == 'dev'
+  - ruff ; extra == 'dev'
   - sphinx ; extra == 'dev'
   - sphinx-rtd-theme ; extra == 'dev'
   - fsspec ; extra == 'examples'
+  - h5netcdf ; extra == 'examples'
+  - matplotlib ; extra == 'examples'
   - s3fs ; extra == 'examples'
   - zarr<3 ; extra == 'examples'
-  - matplotlib ; extra == 'examples'
-  - h5netcdf ; extra == 'examples'
   requires_python: '>=3.10'
   editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/xcb-util-0.4.1-hb711507_2.conda
