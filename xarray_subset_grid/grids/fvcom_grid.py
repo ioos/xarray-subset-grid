@@ -133,7 +133,8 @@ class FVCOMGrid(UGrid):
         if "siglev" in ds.dims:
             siglev = ds["siglev"].isel(node=0)
             elevation_index = [
-                int(np.absolute(siglev - level).argmin(axis=0).values) for level in levels]
+                int(np.absolute(siglev - level).argmin(axis=0).values) for level in levels
+            ]
             selections["siglev"] = slice(elevation_index[0], elevation_index[1])
 
         return ds.isel(selections)

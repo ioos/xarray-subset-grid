@@ -117,7 +117,6 @@ def plot_sgrid(axes, ds, nodes=False, rho_points=False, edge_points=False):
     lon_var, lat_var = grid_defs["node_coordinates"].split()
     nodes_lon, nodes_lat = (ds[n] for n in grid_defs["node_coordinates"].split())
 
-
     # faces = ds[mesh_defs["face_node_connectivity"]]
 
     # if faces.shape[0] == 3:

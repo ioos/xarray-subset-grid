@@ -102,15 +102,14 @@ class SGrid(Grid):
     def compute_polygon_subset_selector(
         self, ds: xr.Dataset, polygon: list[tuple[float, float]], name: str = None
     ) -> Selector:
-
         grid_topology_key = ds.cf.cf_roles["grid_topology"][0]
         grid_topology = ds[grid_topology_key]
         dims = _get_sgrid_dim_coord_names(grid_topology)
         subset_masks: list[tuple[list[str], xr.DataArray]] = []
 
-        node_info = _get_location_info_from_topology(grid_topology, 'node')
-        node_dims = node_info['dims']
-        node_coords = node_info['coords']
+        node_info = _get_location_info_from_topology(grid_topology, "node")
+        node_dims = node_info["dims"]
+        node_coords = node_info["coords"]
 
         unique_dims = set(node_dims)
         node_vars = [k for k in ds.variables if unique_dims.issubset(set(ds[k].dims))]
@@ -118,56 +117,62 @@ class SGrid(Grid):
         node_lon: xr.DataArray | None = None
         node_lat: xr.DataArray | None = None
         for c in node_coords:
-            if 'lon' in ds[c].standard_name.lower():
+            if "lon" in ds[c].standard_name.lower():
                 node_lon = ds[c]
-            elif 'lat' in ds[c].standard_name.lower():
+            elif "lat" in ds[c].standard_name.lower():
                 node_lat = ds[c]
 
         node_mask = compute_2d_subset_mask(lat=node_lat, lon=node_lon, polygon=polygon)
         msk = np.where(node_mask)
-        index_bounding_box = np.array([[msk[0].min(), msk[0].max()+1],
-                                       [msk[1].min(), msk[1].max()+1]])
+        index_bounding_box = np.array(
+            [[msk[0].min(), msk[0].max() + 1], [msk[1].min(), msk[1].max() + 1]]
+        )
         # quick and dirty add a 1 node pad around the psi mask.
         # This is to ensure the entire polygon is covered.
-        index_bounding_box[0,0] = max(0, index_bounding_box[0,0] - 1)
-        index_bounding_box[0,1] = min(node_lon.shape[0], index_bounding_box[0,1] + 1)
-        index_bounding_box[1,0] = max(0, index_bounding_box[1,0] - 1)
-        index_bounding_box[1,1] = min(node_lon.shape[1], index_bounding_box[1,1] + 1)
-        node_mask[index_bounding_box[0][0]:index_bounding_box[0][1],
-                  index_bounding_box[1][0]:index_bounding_box[1][1]] = True
+        index_bounding_box[0, 0] = max(0, index_bounding_box[0, 0] - 1)
+        index_bounding_box[0, 1] = min(node_lon.shape[0], index_bounding_box[0, 1] + 1)
+        index_bounding_box[1, 0] = max(0, index_bounding_box[1, 0] - 1)
+        index_bounding_box[1, 1] = min(node_lon.shape[1], index_bounding_box[1, 1] + 1)
+        node_mask[
+            index_bounding_box[0][0] : index_bounding_box[0][1],
+            index_bounding_box[1][0] : index_bounding_box[1][1],
+        ] = True
 
         subset_masks.append((node_vars, node_mask))
 
-        for s in ('face', 'edge1', 'edge2'):
+        for s in ("face", "edge1", "edge2"):
             info = _get_location_info_from_topology(grid_topology, s)
-            dims = info['dims']
-            coords = info['coords']
+            dims = info["dims"]
+            coords = info["coords"]
             unique_dims = set(dims)
             vars = [k for k in ds.variables if unique_dims.issubset(set(ds[k].dims))]
 
             lon: xr.DataArray | None = None
             for c in coords:
-                if 'lon' in ds[c].standard_name.lower():
+                if "lon" in ds[c].standard_name.lower():
                     lon = ds[c]
-            padding = info['padding']
+            padding = info["padding"]
             arranged_padding = [padding[d] for d in lon.dims]
-            arranged_padding = [0 if p == 'none' or p == 'low' else 1 for p in arranged_padding]
+            arranged_padding = [0 if p == "none" or p == "low" else 1 for p in arranged_padding]
             mask = np.zeros(lon.shape, dtype=bool)
-            mask[index_bounding_box[0][0]:index_bounding_box[0][1] + arranged_padding[0],
-                 index_bounding_box[1][0]:index_bounding_box[1][1] + arranged_padding[1]] = True
+            mask[
+                index_bounding_box[0][0] : index_bounding_box[0][1] + arranged_padding[0],
+                index_bounding_box[1][0] : index_bounding_box[1][1] + arranged_padding[1],
+            ] = True
             xr_mask = xr.DataArray(mask, dims=lon.dims)
             subset_masks.append((vars, xr_mask))
 
         return SGridSelector(
-            name=name or 'selector',
+            name=name or "selector",
             polygon=polygon,
             grid_topology_key=grid_topology_key,
             grid_topology=grid_topology,
             subset_masks=subset_masks,
         )
 
+
 def _get_location_info_from_topology(grid_topology: xr.DataArray, location) -> dict[str, str]:
-    '''Get the dimensions and coordinates for a given location from the grid_topology'''
+    """Get the dimensions and coordinates for a given location from the grid_topology"""
     rdict = {}
     dim_str = grid_topology.attrs.get(f"{location}_dimensions", None)
     coord_str = grid_topology.attrs.get(f"{location}_coordinates", None)
@@ -180,26 +185,27 @@ def _get_location_info_from_topology(grid_topology: xr.DataArray, location) -> d
     else:
         dims_only = dims_only.split(" ")
 
-    padding = dim_str.replace(':', '').split(')')
+    padding = dim_str.replace(":", "").split(")")
     pdict = {}
-    if len(padding) == 3: #two padding values
-        pdict[dims_only[0]] = padding[0].split(' ')[-1]
-        pdict[dims_only[1]] = padding[1].split(' ')[-1]
-    elif len(padding) == 2: #one padding value
-        if padding[-1] == '': #padding is on second dim
-            pdict[dims_only[1]] = padding[0].split(' ')[-1]
-            pdict[dims_only[0]] = 'none'
+    if len(padding) == 3:  # two padding values
+        pdict[dims_only[0]] = padding[0].split(" ")[-1]
+        pdict[dims_only[1]] = padding[1].split(" ")[-1]
+    elif len(padding) == 2:  # one padding value
+        if padding[-1] == "":  # padding is on second dim
+            pdict[dims_only[1]] = padding[0].split(" ")[-1]
+            pdict[dims_only[0]] = "none"
         else:
-            pdict[dims_only[0]] = padding[0].split(' ')[-1]
-            pdict[dims_only[1]] = 'none'
+            pdict[dims_only[0]] = padding[0].split(" ")[-1]
+            pdict[dims_only[1]] = "none"
     else:
-        pdict[dims_only[0]] = 'none'
-        pdict[dims_only[1]] = 'none'
+        pdict[dims_only[0]] = "none"
+        pdict[dims_only[1]] = "none"
 
-    rdict['dims'] = dims_only
-    rdict['coords'] = coord_str.split(" ")
-    rdict['padding'] = pdict
+    rdict["dims"] = dims_only
+    rdict["coords"] = coord_str.split(" ")
+    rdict["padding"] = pdict
     return rdict
+
 
 def _get_sgrid_dim_coord_names(
     grid_topology: xr.DataArray,

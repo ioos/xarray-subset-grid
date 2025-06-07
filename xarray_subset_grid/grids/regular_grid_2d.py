@@ -12,7 +12,7 @@ class RegularGrid2dSelector(Selector):
 
     def __init__(
         self, polygon: list[tuple[float, float]] | np.ndarray, subset_mask: xr.DataArray, name: str
-        ):
+    ):
         super().__init__()
         self.name = name
         self.polygon = polygon
@@ -83,7 +83,6 @@ class RegularGrid2d(Grid):
     def compute_polygon_subset_selector(
         self, ds: xr.Dataset, polygon: list[tuple[float, float]], name: str = None
     ) -> Selector:
-
         lat = ds.cf["latitude"]
         lon = ds.cf["longitude"]
         subset_mask = compute_2d_subset_mask(lat=lat, lon=lon, polygon=polygon)
@@ -91,5 +90,5 @@ class RegularGrid2d(Grid):
         return RegularGrid2dSelector(
             polygon=polygon,
             subset_mask=subset_mask,
-            name=name or 'selector',
-            )
+            name=name or "selector",
+        )
