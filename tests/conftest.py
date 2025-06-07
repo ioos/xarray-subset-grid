@@ -16,8 +16,7 @@ def pytest_addoption(parser):
 def pytest_configure(config):
     # register an additional marker
     config.addinivalue_line(
-        "markers",
-        "online: mark test to run only when online (using AWS resources)"
+        "markers", "online: mark test to run only when online (using AWS resources)"
     )
 
 

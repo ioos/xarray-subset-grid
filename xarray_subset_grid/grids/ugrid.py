@@ -173,7 +173,6 @@ class UGrid(Grid):
     def compute_polygon_subset_selector(
         self, ds: xr.Dataset, polygon: list[tuple[float, float]], name: str = None
     ) -> Selector:
-
         # For this grid type, we find all nodes that are connected to elements that are inside
         # the polygon. To do this, we first find all nodes that are inside the polygon and then
         # find all elements that are connected to those nodes.
@@ -262,7 +261,7 @@ class UGrid(Grid):
                 face_face_new = face_face_new.T
 
         return UGridSelector(
-            name=name or 'selector',
+            name=name or "selector",
             polygon=polygon,
             node_dimension=node_dimension,
             selected_nodes=selected_nodes,
@@ -292,7 +291,7 @@ def assign_ugrid_topology(
     face_dimension: str | None = None,
     edge_dimension: str | None = None,
     start_index: int | None = None,
-    ) -> xr.Dataset:
+) -> xr.Dataset:
     # Should this be "make the entire dataset UGRID compliant ?"
     #    That would mean that the grid variables should all get metadata,
     #    such as "location"
@@ -385,7 +384,7 @@ def assign_ugrid_topology(
     # Use a SimpleNamespace for the attrs
     # it's easier to access than a dict, and easier to update than locals
     mesh = SimpleNamespace(
-        topology_dimension = np.int32(2),
+        topology_dimension=np.int32(2),
         face_node_connectivity=None,
         face_face_connectivity=None,
         boundary_node_connectivity=None,
@@ -398,15 +397,15 @@ def assign_ugrid_topology(
         face_dimension=None,
         edge_dimension=None,
         start_index=None,
-        )
+    )
     # Add in the existing ones from the Dataset mesh object
     mesh.__dict__.update(mesh_attrs)
 
     # Add in the ones passed in:
     variables = vars()
-    mesh.__dict__.update({att: variables[att]
-                          for att in ALL_MESH_VARS
-                          if variables[att] is not None})
+    mesh.__dict__.update(
+        {att: variables[att] for att in ALL_MESH_VARS if variables[att] is not None}
+    )
     mesh.start_index = start_index
 
     if mesh.face_node_connectivity is None:
@@ -416,8 +415,7 @@ def assign_ugrid_topology(
     if mesh.face_coordinates is None:
         try:
             face_coordinates = ds[mesh.face_node_connectivity].cf.coordinates
-            mesh.face_coordinates = " ".join(f"{coord[0]}"
-                                             for coord in face_coordinates.values())
+            mesh.face_coordinates = " ".join(f"{coord[0]}" for coord in face_coordinates.values())
         except AttributeError:
             mesh.face_coordinates = None
 
@@ -453,7 +451,6 @@ def assign_ugrid_topology(
             if var.dims == ds[mesh.face_node_connectivity].dims:
                 mesh.face_face_connectivity = var_name
                 break
-
 
     if mesh.face_dimension is None:
         # The face_dimension attribute specifies which netcdf dimension is used to
