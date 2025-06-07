@@ -25509,8 +25509,8 @@ packages:
   timestamp: 1745980911520
 - pypi: ./
   name: xarray-subset-grid
-  version: 0.1.dev82+ga60a450
-  sha256: 50f8b34ae97dff7908d5ac0e160f685b8397b839ad086a757fee378bc321e3bc
+  version: 0.1.dev85+ge509d10
+  sha256: b9c84e6038d90d71be0b9947e53e9453b86e105353d0e5af6b8fbfa27c76bbf4
   requires_dist:
   - numpy
   - xarray>=2024.6
