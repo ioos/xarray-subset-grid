@@ -138,7 +138,8 @@ python-build = "*"
 
 [tool.pixi.feature.dev.tasks]
 lint = "ruff check tests xarray_subset_grid"
-test = "pytest --online tests/"
+test = "pytest tests/"
+test_all = "pytest --online tests/"
 
 [tool.pixi.feature.examples.dependencies]
 matplotlib = "*"

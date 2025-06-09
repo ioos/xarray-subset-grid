@@ -79,10 +79,11 @@ There are three "environments" set up for pixi:
 - `dev`
 - `examples`
 
-And two "tasks": 
+And three "tasks":
 
 - `lint`
-- `test`
+- `test` : run most of the tests
+- `test_all` : run the tests that access AWS -- i.e. download data directly.
 
 To run the tests in an isolated environment:
 
@@ -90,25 +91,26 @@ To run the tests in an isolated environment:
 pixi run -e dev test
 ```
 
+Or with a specific python version:
+```bash
+pixi run -e test312 test
+```
+
+Options are: `test310` `test311` `test312` `test313`
+
+
 To run a shell to do dev work:
 
 ```bash
 pixi shell -e dev
 ```
 
-If you want to run the examples (notebooks and al that):
-
-```bash
-pixi shell -e all
-```
-
-That will set up a conda environment with all the develop dependencies.
-
-To run a shell in which you can run the examples:
+To run a shell in which you can run the examples (notebooks and al that):
 
 ```bash
 pixi shell -e examples
 ```
+
 To run a shell with everything (dev and example deps:
 
 ```bash
