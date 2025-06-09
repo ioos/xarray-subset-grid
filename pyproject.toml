@@ -63,10 +63,18 @@ write_to = "xarray_subset_grid/_version.py"
 
 [tool.ruff]
 builtins = ["ellipsis"]
-extend-exclude = ["xarray_subset_grid/_version.py"]
+extend-exclude = ["xarray_subset_grid/_version.py", "docs"]
 target-version = "py310"
 # Use a longer line length.
 line-length = 100
+
+[tool.ruff.format]
+# Prefer single quotes over double quotes.
+quote-style = "double"
+# Use `\n` line endings for all files
+line-ending = "lf"
+exclude = ["*.ipynb"]
+
 
 [tool.ruff.lint]
 ignore = [

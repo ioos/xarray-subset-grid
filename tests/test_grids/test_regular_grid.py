@@ -12,7 +12,7 @@ import xarray as xr
 
 from xarray_subset_grid.grids.regular_grid import RegularGrid
 
-TEST_DATA = Path(__file__).parent.parent / 'example_data'
+TEST_DATA = Path(__file__).parent.parent / "example_data"
 
 TEST_FILE1 = TEST_DATA / "AMSEAS-subset.nc"
 
@@ -23,6 +23,7 @@ It was created by the "OFS subsetter"
 
 """
 
+
 def test_recognise():
     """
     works for at least one file ...
@@ -31,6 +32,7 @@ def test_recognise():
 
     assert RegularGrid.recognize(ds)
 
+
 def test_recognise_not():
     """
     should not recognise an SGrid
@@ -38,8 +40,6 @@ def test_recognise_not():
     ds = xr.open_dataset(TEST_DATA / "arakawa_c_test_grid.nc")
 
     assert not RegularGrid.recognize(ds)
-
-
 
 
 #######

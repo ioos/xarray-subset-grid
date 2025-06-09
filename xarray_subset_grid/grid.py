@@ -135,7 +135,7 @@ class Grid(ABC):
     @abstractmethod
     def compute_polygon_subset_selector(
         self, ds: xr.Dataset, polygon: list[tuple[float, float]], name: str = None
-) -> Selector:
+    ) -> Selector:
         """Compute the subset selector for the polygon.
 
         This method will return a Selector that can be used to subset
@@ -148,10 +148,7 @@ class Grid(ABC):
         raise NotImplementedError()
 
     def compute_bbox_subset_selector(
-        self,
-        ds: xr.Dataset,
-        bbox: tuple[float, float, float, float],
-        name: str = None
+        self, ds: xr.Dataset, bbox: tuple[float, float, float, float], name: str = None
     ) -> Selector:
         """Compute the subset selector for the bounding box.
 
@@ -190,9 +187,7 @@ class Grid(ABC):
         selector = self.compute_polygon_subset_selector(ds, polygon)
         return selector.select(ds)
 
-    def subset_bbox(
-        self, ds: xr.Dataset, bbox: tuple[float, float, float, float]
-        ) -> xr.Dataset:
+    def subset_bbox(self, ds: xr.Dataset, bbox: tuple[float, float, float, float]) -> xr.Dataset:
         """Subset the dataset to the bounding box.
 
         This is a convenience method that will compute the subset

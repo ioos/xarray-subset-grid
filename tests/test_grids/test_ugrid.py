@@ -270,6 +270,7 @@ def test_assign_ugrid_topology_min():
     for key, val in mesh.items():
         assert val
 
+
 def test_assign_ugrid_topology_dict():
     """
     FVCOM (SFBOFS):
@@ -295,6 +296,7 @@ def test_assign_ugrid_topology_dict():
     assert mesh["face_face_connectivity"] == "nbe"
     assert mesh["face_dimension"] == "nele"
 
+
 def test_assign_ugrid_topology_no_face_coords():
     """
     test for no face coords
@@ -305,10 +307,12 @@ def test_assign_ugrid_topology_no_face_coords():
     with pytest.raises(KeyError):
         ds["mesh"]
 
-    ds = ugrid.assign_ugrid_topology(ds, face_node_connectivity='tris',
-                                         node_coordinates = ('lon lat'),
-                                         boundary_node_connectivity = 'bounds'
-                                         )
+    ds = ugrid.assign_ugrid_topology(
+        ds,
+        face_node_connectivity="tris",
+        node_coordinates=("lon lat"),
+        boundary_node_connectivity="bounds",
+    )
 
     # there are others, but these are the ones that really matter.
     mesh = ds["mesh"].attrs
@@ -317,14 +321,16 @@ def test_assign_ugrid_topology_no_face_coords():
     assert mesh["face_node_connectivity"] == "tris"
     assert mesh["face_dimension"] == "tris"
 
-    assert mesh.keys() == {'cf_role',
-                         'topology_dimension',
-                         'face_node_connectivity',
-                         'boundary_node_connectivity',
-                         'node_coordinates',
-                         'face_dimension',
-                         'start_index',
-                         }
+    assert mesh.keys() == {
+        "cf_role",
+        "topology_dimension",
+        "face_node_connectivity",
+        "boundary_node_connectivity",
+        "node_coordinates",
+        "face_dimension",
+        "start_index",
+    }
+
 
 def test_assign_ugrid_topology_existing_mesh_var():
     """
@@ -384,7 +390,6 @@ def test_assign_ugrid_topology_start_index_zero_infer():
     assert ds["mesh_boundary_nodes"].attrs["start_index"] == 0
 
 
-
 # NOTE: these tests are probably not complete -- but they are something.
 #       we really should have a complete UGRID example to test with.
 def test_grid_vars():
@@ -427,6 +432,7 @@ def test_data_vars():
         ]
     )
 
+
 def test_assign_ugrid_topology_all():
     """
     it should use all the ones you pass in.
@@ -450,7 +456,7 @@ def test_assign_ugrid_topology_all():
 
     new_attrs = {}
     # clear out most of the mesh variable -- transfer to new attrs
-    mesh_attrs = ds['mesh'].attrs
+    mesh_attrs = ds["mesh"].attrs
     for key in tuple(mesh_attrs.keys()):
         if key not in {"cf_role", "long_name", "topology_dimension"}:
             new_attrs[key] = mesh_attrs.pop(key)
@@ -547,6 +553,7 @@ def test_vertical_levels():
         "siglay",
         "node",
     )
+
 
 @pytest.mark.online
 def test_3d_selector():
