@@ -27,11 +27,11 @@ repos:
         - --ignore-words-list=astroid,fo
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.11.12
+  rev: v0.11.13
   hooks:
     - id: ruff
       args: ["--fix", "--show-fixes"]
-    # - id: ruff-format
+    - id: ruff-format
 
 - repo: https://github.com/tox-dev/pyproject-fmt
   rev: v2.6.0
