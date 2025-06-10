@@ -60,22 +60,26 @@ packages = [ "xarray_subset_grid" ]
 write_to = "xarray_subset_grid/_version.py"
 
 [tool.ruff]
-builtins = ["ellipsis"]
-extend-exclude = ["xarray_subset_grid/_version.py", "docs"]
 target-version = "py310"
 # Use a longer line length.
 line-length = 100
 
-[tool.ruff.format]
+builtins = [ "ellipsis" ]
+extend-exclude = [ "docs", "xarray_subset_grid/_version.py" ]
 # Prefer single quotes over double quotes.
-quote-style = "double"
+format.quote-style = "double"
 # Use `\n` line endings for all files
-line-ending = "lf"
-exclude = ["*.ipynb"]
-
-
-[tool.ruff.lint]
-ignore = [
+format.line-ending = "lf"
+format.exclude = [ "*.ipynb" ]
+lint.select = [
+  "E",   # Pycodestyle
+  "F",   # Pyflakes
+  "I",   # isort
+  "TID", # flake8-tidy-imports (absolute imports)
+  "UP",  # Pyupgrade
+  "W",
+]
+lint.ignore = [
   "E402", # module level import not at top of file
   "E731", # do not assign a lambda expression, use a def
 ]
