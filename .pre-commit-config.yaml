@@ -38,10 +38,10 @@ repos:
   hooks:
     - id: pyproject-fmt
 
-# - repo: https://github.com/woodruffw/zizmor-pre-commit
-#   rev: v1.6.0
-#   hooks:
-#     - id: zizmor
+- repo: https://github.com/woodruffw/zizmor-pre-commit
+  rev: v1.6.0
+  hooks:
+    - id: zizmor
 
 ci:
     autofix_commit_msg: |
