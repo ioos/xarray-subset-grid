@@ -175,7 +175,7 @@ class Grid(ABC):
     ) -> xr.Dataset:
         """Subset the dataset to the grid.
 
-        This is a conveinence method that will compute the subset
+        This is a convenience method that will compute the subset
         selector for the polygon and then apply it to the dataset. This
         is useful for one off subsetting operations where the user does
         not want to keep the selector around for later use.

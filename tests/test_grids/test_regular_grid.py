@@ -1,5 +1,5 @@
 """
-Tests for rectangular grid code
+Tests for rectangular grid code.
 """
 
 from pathlib import Path
@@ -16,12 +16,9 @@ TEST_DATA = Path(__file__).parent.parent / "example_data"
 
 TEST_FILE1 = TEST_DATA / "AMSEAS-subset.nc"
 
-"""
-NGOFS2_RGRID.nc is a small subset of the regridded NGOFS2 model.
+# NGOFS2_RGRID.nc is a small subset of the regridded NGOFS2 model.
 
-It was created by the "OFS subsetter"
-
-"""
+# It was created by the "OFS subsetter"
 
 
 def test_recognise():
@@ -43,7 +40,7 @@ def test_recognise_not():
 
 
 #######
-# These from teh ugrid tests -- need to be adapted
+# These from the ugrid tests -- need to be adapted
 #######
 
 # def test_grid_vars():
