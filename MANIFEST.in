@@ -1,0 +1,15 @@
+include *.txt
+include README.md
+include pyproject.toml
+
+graft xarray_subset_grid
+
+prune .github
+prune *.egg-info
+prune docs
+prune tests
+
+exclude .gitignore
+exclude .pre-commit-config.yaml
+exclude *.yml
+exclude xarray_subset_grid/_version.py
