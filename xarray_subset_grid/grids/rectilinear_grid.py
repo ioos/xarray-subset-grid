@@ -64,16 +64,19 @@ class RectilinearGridPolygonSelector(RectilinearGridBBoxSelector):
 
 
 class RectilinearGrid(Grid):
-    """Grid implementation for regular lat/lng grids."""
+    """Grid implementation for regular lat/long grids."""
 
     @staticmethod
     def recognize(ds: xr.Dataset) -> bool:
         """
         Recognize if the dataset matches the given grid.
         """
-        # Short-circut to known grids.
-        grid = ds.variables.get("grid", None)
-        if grid is not None:
+        # Short-circuit to defined grids (UGRID or SGRID)
+        mesh_var = ds.cf.cf_roles.get("mesh_topology")
+        if mesh_var is not None:  # it's a UGRID
+            return False
+        mesh_var = ds.cf.cf_roles.get("grid_topology")
+        if mesh_var is not None: # it's an SGRID
             return False
 
         # Are coords available?
@@ -95,7 +98,7 @@ class RectilinearGrid(Grid):
     @property
     def name(self) -> str:
         """Name of the grid type."""
-        return "regular_grid"
+        return "rectilinear_grid"
 
     def grid_vars(self, ds: xr.Dataset) -> set[str]:
         """Set of grid variables.

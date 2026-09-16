@@ -6,16 +6,13 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+
 import xarray as xr
 
 from tests.conftest import RGRID_FILES, SGRID_FILES, UGRID_FILES
 from xarray_subset_grid.grids.rectilinear_grid import RectilinearGrid
 
 EXAMPLE_DATA = Path(__file__).parent.parent / "example_data"
-
-
-# NGOFS2_RGRID.nc is a small subset of the regridded NGOFS2 model.
-# It was created by the "OFS subsetter"
 
 @pytest.mark.parametrize("test_file", RGRID_FILES)
 def test_recognize(test_file):
