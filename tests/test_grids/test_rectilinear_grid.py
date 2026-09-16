@@ -6,7 +6,6 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-
 import xarray as xr
 
 from tests.conftest import RGRID_FILES, SGRID_FILES, UGRID_FILES

@@ -1,7 +1,11 @@
 """
-Implementation of rectilinear grid
+Implementation of Rectilinear grid
 
 i.e. : 1D longitude and latitude coordinates
+
+These can be fully defined with standard CF standards.
+
+Does not require a grid or mesh variable.
 """
 
 import numpy as np
