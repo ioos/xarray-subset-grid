@@ -1,6 +1,7 @@
 """
-Implementation for any unknown 1D and 2D grids
+Implementation of rectilinear grid
 
+i.e. : 1D longitude and latitude coordinates
 """
 
 import numpy as np
@@ -14,8 +15,8 @@ from xarray_subset_grid.utils import (
 )
 
 
-class RegularGridBBoxSelector(Selector):
-    """Selector for regular lat/lng grids."""
+class RectilinearGridBBoxSelector(Selector):
+    """Selector for rectilinear lat/long grids."""
 
     bbox: tuple[float, float, float, float]
     _longitude_selection: slice
@@ -41,7 +42,7 @@ class RegularGridBBoxSelector(Selector):
         )
 
 
-class RegularGridPolygonSelector(RegularGridBBoxSelector):
+class RectilinearGridPolygonSelector(RectilinearGridBBoxSelector):
     """Polygon Selector for regular lat/lon grids."""
 
     # with a regular grid, you have to select the full bounding box anyway
@@ -58,7 +59,7 @@ class RegularGridPolygonSelector(RegularGridBBoxSelector):
         super().__init__(bbox=bbox)
 
 
-class RegularGrid(Grid):
+class RectilinearGrid(Grid):
     """Grid implementation for regular lat/lng grids."""
 
     @staticmethod
@@ -132,7 +133,7 @@ class RegularGrid(Grid):
 
         polygon = normalize_polygon_x_coords(lon, polygon)
 
-        selector = RegularGridPolygonSelector(polygon=polygon)
+        selector = RectilinearGridPolygonSelector(polygon=polygon)
         return selector
 
     def compute_bbox_subset_selector(
@@ -142,5 +143,5 @@ class RegularGrid(Grid):
         name: str | None = None,
     ) -> Selector:
         bbox = normalize_bbox_x_coords(ds.cf["longitude"].values, bbox)
-        selector = RegularGridBBoxSelector(bbox)
+        selector = RectilinearGridBBoxSelector(bbox)
         return selector

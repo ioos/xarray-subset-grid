@@ -7,23 +7,16 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-# only needed if you want to hit AWS servers.
-# try:
-#     import fsspec
-# except ImportError:
-#     fsspec = None
 import xarray as xr
 
 from tests.conftest import RGRID_FILES, SGRID_FILES, UGRID_FILES
-from xarray_subset_grid.grids.unknown_grid import RegularGrid
+from xarray_subset_grid.grids.rectilinear_grid import RectilinearGrid
 
 EXAMPLE_DATA = Path(__file__).parent.parent / "example_data"
 
 
 # NGOFS2_RGRID.nc is a small subset of the regridded NGOFS2 model.
-
 # It was created by the "OFS subsetter"
-
 
 @pytest.mark.parametrize("test_file", RGRID_FILES)
 def test_recognize(test_file):
@@ -32,7 +25,7 @@ def test_recognize(test_file):
     """
     ds = xr.open_dataset(test_file)
 
-    assert RegularGrid.recognize(ds)
+    assert RectilinearGrid.recognize(ds)
 
 
 @pytest.mark.parametrize("test_file", UGRID_FILES + SGRID_FILES)
@@ -42,7 +35,7 @@ def test_recognize_not(test_file):
     """
     ds = xr.open_dataset(test_file)
 
-    assert not RegularGrid.recognize(ds)
+    assert not RectilinearGrid.recognize(ds)
 
 
 def create_synthetic_rectangular_grid_dataset(decreasing=False):
@@ -134,8 +127,8 @@ def test_data_vars2():
     """
     print("Testing data_vars error...")
     ds = create_synthetic_rectangular_grid_dataset()
-    # Ensure it is recognized as a RegularGrid
-    assert RegularGrid.recognize(ds)
+    # Ensure it is recognized as a RectilinearGrid
+    assert RectilinearGrid.recognize(ds)
 
     # Access xsg accessor
     data_vars = ds.xsg.data_vars
@@ -232,7 +225,7 @@ def test_decreasing_coords():
     """
     print("\nTesting decreasing coordinates support...")
     ds = create_synthetic_rectangular_grid_dataset(decreasing=True)
-    # assert RegularGrid.recognize(ds)
+    # assert RectilinearGrid.recognize(ds)
 
     # bbox: (min_lon, min_lat, max_lon, max_lat)
     bbox = (-95, 35, -85, 45)

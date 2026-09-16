@@ -7,7 +7,7 @@ import xarray as xr
 from xarray_subset_grid.grid import Grid
 from xarray_subset_grid.grids import (
     FVCOMGrid,
-    RegularGrid,
+    RectilinearGrid,
     # @D version doesn't appear to be different ??
     # RegularGrid2d,
     SELFEGrid,
@@ -20,7 +20,7 @@ _grid_impls: list[type[Grid]] = [
     SELFEGrid,
     UGrid,
     SGrid,
-    RegularGrid,
+    RectilinearGrid,
 ]
 
 
