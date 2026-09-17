@@ -1,5 +1,5 @@
 from .fvcom_grid import FVCOMGrid
-from .rectilinear_grid import RectilinearGrid
+from .node_grids import RectilinearGrid, QuadGrid
 from .selfe_grid import SELFEGrid
 from .sgrid import SGrid
 from .ugrid import UGrid
@@ -7,6 +7,7 @@ from .ugrid import UGrid
 __all__ = [
     "FVCOMGrid",
     "RectilinearGrid",
+    "QuadGrid"
     "SELFEGrid",
     "SGrid",
     "UGrid",
