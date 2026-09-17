@@ -6,6 +6,7 @@ i.e. : 1D longitude and latitude coordinates
 These can be fully defined with standard CF standards.
 
 Does not require a grid or mesh variable.
+
 """
 
 import numpy as np
@@ -69,36 +70,48 @@ class RectilinearGrid(Grid):
     @staticmethod
     def recognize(ds: xr.Dataset) -> bool:
         """
-        Recognize if the dataset matches the given grid.
+        Recognize if the Dataset matches a rectilinear grid.
         """
         # Short-circuit to defined grids (UGRID or SGRID)
-        mesh_var = ds.cf.cf_roles.get("mesh_topology")
-        if mesh_var is not None:  # it's a UGRID
-            return False
-        mesh_var = ds.cf.cf_roles.get("grid_topology")
-        if mesh_var is not None: # it's an SGRID
+        mesh_vars = (ds.cf.cf_roles.get("mesh_topology"),
+                    ds.cf.cf_roles.get("grid_topology"),
+                    )
+        if mesh_vars != (None, None):  # it's an SGRID or UGRID
             return False
 
-        # Are coords available?
         lat = ds.cf.coordinates.get("latitude", None)
         lon = ds.cf.coordinates.get("longitude", None)
-        if lat is None or lon is None:
+        if (lat is None) or (lon is None):
             return False
 
         # Must have only one lon, lat!
         if (len(lat) != len(lon)) or len(lat) > 1:
             return False
 
-        # If lat, lon are consistent and not 3D, we have a grid!
-        lat, lon = lat[0], lon[0]
-        if (ds[lon].ndim == ds[lat].ndim) or ds[lon].ndim < 3:
-            return True
+        # Make sure the coordinates are 1D and don't match
+        lat_dims = ds[lat[0]].dims
+        ndims_lat = ds[lat[0]].ndim
+        lon_dims = ds[lon[0]].dims
+        ndims_lon = ds[lat[0]].ndim
+        if ((lat_dims == lon_dims)
+            or (ndims_lat > 1)
+            or (ndims_lon > 1)
+            ):
+            return False
+
+        # make sure that at least one variable is using both the
+        #   latitude and longitude dimensions
+        #   (ugrids have both coordinates, but not both dimensions)
+        for var_name, var in ds.data_vars.items():
+            if ((lat_dims[0] in var.dims)
+                and (lon_dims[0] in var.dims)):
+                return True
         return False
 
     @property
     def name(self) -> str:
         """Name of the grid type."""
-        return "rectilinear_grid"
+        return "rectilinear grid"
 
     def grid_vars(self, ds: xr.Dataset) -> set[str]:
         """Set of grid variables.
