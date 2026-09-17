@@ -9,8 +9,9 @@ import pytest
 
 import xarray as xr
 
-from tests.conftest import RGRID_FILES, SGRID_FILES, UGRID_FILES
+from tests.conftest import RGRID_FILES, SGRID_FILES, UGRID_FILES, QGRID_FILES
 from xarray_subset_grid.grids.rectilinear_grid import RectilinearGrid
+
 
 EXAMPLE_DATA = Path(__file__).parent.parent / "example_data"
 
@@ -22,6 +23,16 @@ def test_recognize(test_file):
     ds = xr.open_dataset(test_file)
 
     assert RectilinearGrid.recognize(ds)
+
+@pytest.mark.parametrize("test_file", QGRID_FILES)
+def test_recognize_quad(test_file):
+    """
+    works for at least one file ...
+    """
+    ds = xr.open_dataset(test_file)
+
+    assert QuadGrid.recognize(ds)
+
 
 
 @pytest.mark.parametrize("test_file", UGRID_FILES + SGRID_FILES)
