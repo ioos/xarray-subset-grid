@@ -5,7 +5,7 @@ RectilinearGrid - North-East aligned
 QuadGrid (curvilinear grid)
 
 These can be defined with just CF coordinates
--- no need for a mesh variable
+-- no need for a grid/mesh variable
 """
 
 import numpy as np
